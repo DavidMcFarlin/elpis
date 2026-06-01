@@ -1,4 +1,5 @@
 /build/
 /po/*.pot
 *.tar.xz
+.claude/
 __pycache__/
