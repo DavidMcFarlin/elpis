@@ -4,14 +4,22 @@
   <launchable type="desktop-id">io.github.DavidMcFarlin.Elpis.desktop</launchable>
   <translation type="gettext">elpis</translation>
   <name>Elpis</name>
-  <developer_name>David McFarlin</developer_name>
+  <developer id="io.github.davidmcfarlin">
+    <name>David McFarlin</name>
+  </developer>
   <summary>Pandora radio client</summary>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0+</project_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <description>
     <p>An easy to use native Pandora Radio client that is more lightweight than the pandora.com web client and integrates with the desktop.</p>
     <p>It supports most functionality of pandora.com such as rating songs, creating/managing stations, quickmix, etc. On top of that it has many features such as last.fm scrobbling</p>
   </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/DavidMcFarlin/elpis/1.6.3/data/screenshots/elpis-main.png</image>
+      <caption>Playing a station in Elpis</caption>
+    </screenshot>
+  </screenshots>
   <url type="homepage">https://github.com/DavidMcFarlin/elpis</url>
   <url type="bugtracker">https://github.com/DavidMcFarlin/elpis/issues</url>
   <url type="translate">https://github.com/DavidMcFarlin/elpis/wiki/Contributing</url>
