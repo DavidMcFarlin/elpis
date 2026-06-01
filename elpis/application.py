@@ -250,6 +250,11 @@ class ElpisApplication(Gtk.Application):
 
 
 def main(version=''):
+    # GtkApplication does not set the program name to the application id, so the
+    # Wayland app_id defaults to argv[0] ("elpis"). That mismatch stops the shell
+    # from associating the running window with the .desktop file, leaving it
+    # without an icon in the dash/taskbar. Pin prgname to the app id to fix it.
+    GLib.set_prgname('io.github.DavidMcFarlin.Elpis')
     app = ElpisApplication(version=version)
     exit_status = app.run(sys.argv)
     sys.exit(exit_status)
