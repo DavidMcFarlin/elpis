@@ -71,6 +71,21 @@ class ElpisApplication(Gtk.Application):
             if display:
                 Gtk.IconTheme.get_for_display(display).add_search_path(icon_path)
 
+        # Prefer dark theme regardless of system setting — Elpis is dark-only.
+        settings = Gtk.Settings.get_default()
+        if settings:
+            settings.set_property('gtk-application-prefer-dark-theme', True)
+
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_resource('/io/github/DavidMcFarlin/Elpis/elpis.css')
+        display = Gdk.Display.get_default()
+        if display:
+            Gtk.StyleContext.add_provider_for_display(
+                display,
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+            )
+
         action = Gio.SimpleAction.new("stations", None)
         action.connect("activate", self.stations_cb)
         self.add_action(action)
