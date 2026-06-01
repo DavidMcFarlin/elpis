@@ -18,4 +18,4 @@ if not destdir:
     call(['glib-compile-schemas', path.join(datadir, 'glib-2.0', 'schemas')])
 
 print('Compiling python bytecode...')
-compile_dir(destdir + path.join(datadir, 'pithos', 'pithos'), optimize=2)
+compile_dir(destdir + path.join(datadir, 'elpis', 'elpis'), optimize=2)

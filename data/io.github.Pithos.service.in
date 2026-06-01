@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=io.github.Pithos
-Exec=@bindir@/pithos --gapplication-service

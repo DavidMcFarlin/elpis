@@ -6,18 +6,18 @@ cdata.set('localedir', join_paths(prefix, get_option('localedir')))
 cdata.set('pkgdatadir', join_paths(prefix, pkgdatadir))
 
 configure_file(
-  input: 'pithos.in',
-  output: 'pithos',
+  input: 'elpis.in',
+  output: 'elpis',
   configuration: cdata,
   install: true,
   install_dir: get_option('bindir')
 )
 
-pithos = join_paths(meson.build_root(), 'bin/pithos')
+elpis = join_paths(meson.build_root(), 'bin/elpis')
 run_target('run',
-  command: [pithos, '-v'],
+  command: [elpis, '-v'],
   depends: [
-    pithos_resources,
-    pithos_settings
+    elpis_resources,
+    elpis_settings
   ]
 )

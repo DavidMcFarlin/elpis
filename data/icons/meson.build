@@ -1,24 +1,24 @@
 themes = [
   ['hicolor', [
     ['48x48', [
-      'io.github.Pithos-tray.png'
+      'io.github.DavidMcFarlin.Elpis-tray.png'
     ]],
     ['scalable', [
-      'io.github.Pithos-tray.svg',
-      'io.github.Pithos.svg'
+      'io.github.DavidMcFarlin.Elpis-tray.svg',
+      'io.github.DavidMcFarlin.Elpis.svg'
     ]],
     ['symbolic', [
-      'io.github.Pithos-symbolic.svg'
+      'io.github.DavidMcFarlin.Elpis-symbolic.svg'
     ]]
   ]],
   ['ubuntu-mono-dark', [
     ['16x16', [
-      'io.github.Pithos-tray.svg'
+      'io.github.DavidMcFarlin.Elpis-tray.svg'
     ]]
   ]],
   ['ubuntu-mono-light', [
     ['16x16', [
-      'io.github.Pithos-tray.svg'
+      'io.github.DavidMcFarlin.Elpis-tray.svg'
     ]]
   ]]
 ]

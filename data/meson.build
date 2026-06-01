@@ -4,54 +4,54 @@ bindir = join_paths(get_option('prefix'), get_option('bindir'))
 service_conf = configuration_data()
 service_conf.set('bindir', bindir)
 configure_file(
-  input: 'io.github.Pithos.service.in',
-  output: 'io.github.Pithos.service',
+  input: 'io.github.DavidMcFarlin.Elpis.service.in',
+  output: 'io.github.DavidMcFarlin.Elpis.service',
   configuration: service_conf,
   install: true,
   install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
 )
 
-pithos_resources = gnome.compile_resources('pithos',
-  'io.github.Pithos.gresource.xml',
+elpis_resources = gnome.compile_resources('elpis',
+  'io.github.DavidMcFarlin.Elpis.gresource.xml',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir
 )
 
-install_data('io.github.Pithos.gschema.xml',
+install_data('io.github.DavidMcFarlin.Elpis.gschema.xml',
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
-pithos_desktop = i18n.merge_file(
-  input: 'io.github.Pithos.desktop.in',
-  output: 'io.github.Pithos.desktop',
+elpis_desktop = i18n.merge_file(
+  input: 'io.github.DavidMcFarlin.Elpis.desktop.in',
+  output: 'io.github.DavidMcFarlin.Elpis.desktop',
   type: 'desktop',
   po_dir: '../po',
   install: true,
   install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
-pithos_appstream = i18n.merge_file(
-  input: 'io.github.Pithos.metainfo.xml.in',
-  output: 'io.github.Pithos.metainfo.xml',
+elpis_appstream = i18n.merge_file(
+  input: 'io.github.DavidMcFarlin.Elpis.metainfo.xml.in',
+  output: 'io.github.DavidMcFarlin.Elpis.metainfo.xml',
   po_dir: '../po',
   install: true,
   install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
-pithos_settings = gnome.compile_schemas()
+elpis_settings = gnome.compile_schemas()
 
 appstream_util = find_program('appstream-util', required: false)
 if appstream_util.found()
   test('Validate appstream file', appstream_util,
-    args: ['validate', '--nonet', pithos_appstream]
+    args: ['validate', '--nonet', elpis_appstream]
   )
 endif
 
 desktop_utils = find_program('desktop-file-validate', required: false)
 if desktop_utils.found()
   test('Validate desktop file', desktop_utils,
-    args: [pithos_desktop]
+    args: [elpis_desktop]
   )
 endif
 
@@ -65,9 +65,9 @@ endif
 gtk_builder_tool = find_program('gtk4-builder-tool', 'gtk-builder-tool', required: false)
 if gtk_builder_tool.found()
   ui_files = [
-    ['ui', 'AboutPithosDialog.ui'],
-    ['ui', 'PithosWindow.ui'],
-    ['ui', 'PreferencesPithosDialog.ui'],
+    ['ui', 'AboutElpisDialog.ui'],
+    ['ui', 'ElpisWindow.ui'],
+    ['ui', 'PreferencesElpisDialog.ui'],
     ['ui', 'SearchDialog.ui'],
     ['ui', 'StationsDialog.ui'],
     ['ui', 'EqDialog.ui'],

@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import locale
+import gettext
+
+from gi.repository import Gio
+
+# gst-python changes behavior if installed so just
+# avoid loading it since we don't require their additions
+# https://bugzilla.gnome.org/show_bug.cgi?id=736260
+sys.modules['gi.overrides.Gst'] = None
+sys.modules['gi.overrides.GstPbutils'] = None
+
+VERSION = '@VERSION@'
+pkgdatadir = '@pkgdatadir@'
+localedir = '@localedir@'
+srcdir = pkgdatadir
+builddir = os.environ.get('MESON_BUILD_ROOT')
+if builddir:
+    pkgdatadir = os.path.join(builddir, 'data')
+    localedir = os.path.join(builddir, 'po')
+    srcdir = os.environ.get('MESON_SOURCE_ROOT')
+
+    os.environ['GSETTINGS_SCHEMA_DIR'] = pkgdatadir
+    sys.dont_write_bytecode = True
+    os.environ['ELPIS_ICON_PATH'] = os.path.join(pkgdatadir, 'icons')
+
+sys.path.insert(1, srcdir)
+try:
+    locale.bindtextdomain('elpis', localedir)
+    locale.textdomain('elpis')
+except AttributeError:
+    print("Could not bind to locale translation domain.  Some translations won't work")
+gettext.install('elpis', localedir)
+
+resource = Gio.resource_load(os.path.join(pkgdatadir, 'elpis.gresource'))
+Gio.Resource._register(resource)
+
+if __name__ == "__main__":
+    from elpis import application
+    application.main(version=VERSION)
