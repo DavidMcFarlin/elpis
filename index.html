@@ -76,7 +76,7 @@ elpis</code></pre>
       <p>Elpis is a fork that modernizes Pithos for current Linux desktops: GTK&nbsp;3 → GTK&nbsp;4, Flatpak runtime bumped to GNOME&nbsp;50, expired internal CA cert removed, network error handling updated for modern Python. New features include a discoverable hamburger menu, a one-click "New Station" entry point, a genre browser, a station seed manager, station sharing, a bookmarks viewer, and "Why is this playing?" — all of which expose functionality that was always in the Pandora API but never in the upstream UI.</p>
 
       <h3 id="migrate">Will my Pithos settings migrate?</h3>
-      <p>Yes. On first launch, Elpis reads the legacy <code>~/.config/elpis.ini</code> file (created by Pithos) and migrates your username, password, and plugin settings into the new GSettings schema. The legacy file is then removed.</p>
+      <p>No. On first launch you'll be prompted to sign in to Pandora again; credentials are saved to the system keyring via libsecret, so you only enter them once.</p>
 
       <h3 id="flathub">Why isn't Elpis on Flathub?</h3>
       <p>Flathub requires a project to meet activity and quality bars that a brand-new fork of an unmaintained project cannot meet. Elpis is self-hosted on GitHub Pages instead. The repo is signed with a maintainer GPG key, so <code>flatpak install</code> verifies the build automatically.</p>
