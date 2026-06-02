@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elpis — Pandora Radio for GNOME</title>
+  <meta name="description" content="A native GTK 4 Pandora Radio client for GNOME. Lightweight, desktop-integrated, and feature-complete." />
+  <style>
+    :root {
+      --purple: #644b93;
+      --purple-dark: #4a3570;
+      --purple-light: #e6d4ff;
+      --purple-mid: #9b78cc;
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --text-muted: #555577;
+      --border: #ddd8f0;
+      --card-bg: #f9f7ff;
+      --radius: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "Segoe UI", Cantarell, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      background: var(--purple);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    nav .logo { font-size: 1.25rem; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul a { color: rgba(255,255,255,0.85); font-size: 0.95rem; transition: color 0.15s; }
+    nav ul a:hover { color: #fff; text-decoration: none; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 60%, var(--purple-light) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+    }
+    .hero .app-icon {
+      width: 96px; height: 96px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .hero .tagline { font-size: 1.25rem; opacity: 0.9; max-width: 520px; margin: 0 auto 2rem; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-decoration: none; }
+    .btn-primary { background: #fff; color: var(--purple); }
+    .btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+
+    /* SCREENSHOT */
+    .screenshot-section {
+      background: var(--card-bg);
+      padding: 3.5rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .screenshot-section img {
+      max-width: 780px;
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(100, 75, 147, 0.18);
+      border: 1px solid var(--border);
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--purple-dark);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+    }
+    .feature-card .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .feature-card h3 { font-size: 1rem; font-weight: 600; color: var(--purple-dark); margin-bottom: 0.35rem; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* INSTALL */
+    .install-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .install-block h3 { font-size: 1.05rem; font-weight: 700; color: var(--purple-dark); margin-bottom: 0.85rem; }
+    pre {
+      background: #1a1a2e;
+      color: #e6d4ff;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      line-height: 1.7;
+      margin-top: 0.75rem;
+    }
+    .deps { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.6rem; }
+
+    /* RELEASE NOTES */
+    .release { margin-bottom: 1.5rem; }
+    .release-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .release-version { font-weight: 700; font-size: 1.05rem; color: var(--purple-dark); }
+    .release-date { font-size: 0.85rem; color: var(--text-muted); }
+    .release ul { padding-left: 1.25rem; }
+    .release li { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--purple-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.875rem;
+    }
+    footer a { color: var(--purple-light); }
+    footer p + p { margin-top: 0.4rem; }
+
+    /* DIVIDER */
+    .section-divider { border: none; border-top: 1px solid var(--border); }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.25rem; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">Elpis</span>
+  <ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#releases">Releases</a></li>
+    <li><a href="https://github.com/DavidMcFarlin/elpis">GitHub</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="app-icon">🎵</div>
+  <h1>Elpis</h1>
+  <p class="tagline">A native GTK&nbsp;4 Pandora Radio client for the GNOME desktop — lightweight, keyboard-friendly, and fully integrated.</p>
+  <div class="hero-btns">
+    <a href="#install" class="btn btn-primary">Install</a>
+    <a href="https://github.com/DavidMcFarlin/elpis" class="btn btn-secondary">View on GitHub</a>
+  </div>
+</header>
+
+<div class="screenshot-section">
+  <img
+    src="https://raw.githubusercontent.com/DavidMcFarlin/elpis/main/data/screenshots/elpis-main.png"
+    alt="Elpis playing a station"
+    loading="lazy"
+  />
+</div>
+
+<section id="features">
+  <h2>Features</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon">📻</div>
+      <h3>Full Pandora playback</h3>
+      <p>Stream any station, rate tracks, and skip — all the core Pandora controls you rely on.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎛️</div>
+      <h3>Station management</h3>
+      <p>Create, delete, and edit stations. Add or remove song, artist, and genre seeds without leaving the app.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔍</div>
+      <h3>Genre browser</h3>
+      <p>Discover new music through Pandora's built-in genre station catalog.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">💡</div>
+      <h3>Why is this playing?</h3>
+      <p>One-click access to Pandora's track-explanation traits so you understand every recommendation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔖</div>
+      <h3>Bookmarks</h3>
+      <p>Bookmark songs and artists, then view and manage them in the dedicated bookmarks panel.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎹</div>
+      <h3>Media keys &amp; MPRIS</h3>
+      <p>Control playback from your keyboard or any MPRIS-compatible widget without switching windows.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎸</div>
+      <h3>Last.fm scrobbling</h3>
+      <p>Automatically scrobble every track to your Last.fm profile via the integrated pylast backend.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔔</div>
+      <h3>Desktop notifications</h3>
+      <p>Get a desktop notification on track change — album art and all — via the GNOME notification area.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔒</div>
+      <h3>Secure credentials</h3>
+      <p>Account credentials are stored in the system keyring via libsecret — nothing written to disk in plaintext.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="install">
+  <h2>Install</h2>
+
+  <div class="install-block">
+    <h3>Flatpak (recommended)</h3>
+    <p>Build and install locally until Elpis lands on Flathub:</p>
+    <pre>flatpak-builder --force-clean --user --install \
+  --install-deps-from=flathub \
+  build-flatpak flatpak/io.github.DavidMcFarlin.Elpis.json
+
+flatpak run io.github.DavidMcFarlin.Elpis</pre>
+  </div>
+
+  <div class="install-block">
+    <h3>From source</h3>
+    <pre>meson setup --prefix=$HOME/.local build
+meson install -C build
+glib-compile-schemas $HOME/.local/share/glib-2.0/schemas
+elpis</pre>
+    <p class="deps">
+      Requirements: <code>meson</code>, <code>ninja</code>, GTK&nbsp;4&nbsp;≥&nbsp;4.10,
+      Python&nbsp;3.10+, PyGObject, GStreamer&nbsp;1.0, libsecret.<br />
+      Optional: <code>pylast</code> for Last.fm scrobbling.
+    </p>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="releases">
+  <h2>Releases</h2>
+
+  <div class="release">
+    <div class="release-header">
+      <span class="release-version">v1.6.3</span>
+      <span class="release-date">2026-06-01</span>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.5rem;">Initial Elpis release, descended from Pithos 1.6.2 with significant updates.</p>
+    <ul>
+      <li>Port from GTK&nbsp;3 to GTK&nbsp;4</li>
+      <li>Bump Flatpak runtime to GNOME&nbsp;50</li>
+      <li>Remove bundled internal-tuner CA certificate (expired 2020); TLS now validates against system trust store</li>
+      <li>Harden network error handling for modern Python URLError / TimeoutError types</li>
+      <li>Update bundled pylast from 2.2.0 to 4.5.0 and drop the obsolete <code>six</code> dependency</li>
+      <li>Add discoverable hamburger menu with quick "New Station" entry point</li>
+      <li>Add "Why is this playing?" explanation traits via <code>track.explainTrack</code></li>
+      <li>Add genre station browser</li>
+      <li>Add station seed manager (add/remove song, artist, genre seeds)</li>
+      <li>Add station sharing via email</li>
+      <li>Add bookmarks viewer with delete</li>
+      <li>Add right-click context menu on stations dropdown with delete</li>
+    </ul>
+  </div>
+
+  <div class="release">
+    <div class="release-header">
+      <span class="release-version">v1.6.2</span>
+      <span class="release-date">2024-03-03</span>
+    </div>
+    <ul>
+      <li>Fix issue where playback would stop after a few songs</li>
+      <li>Fix album art caches never being deleted</li>
+    </ul>
+  </div>
+
+  <div class="release">
+    <div class="release-header">
+      <span class="release-version">v1.6.1</span>
+      <span class="release-date">2023-05-19</span>
+    </div>
+    <ul>
+      <li>Fix Python 3.11 support</li>
+      <li>Fix incorrectly labeling very short songs as ads</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Elpis is free software under the
+    <a href="https://github.com/DavidMcFarlin/elpis/blob/main/LICENSE">GPL-3.0 license</a>.
+    Descended from the <a href="https://github.com/pithos/pithos">Pithos</a> project.
+  </p>
+  <p>
+    Not affiliated with or endorsed by Pandora Media, Inc.
+    &nbsp;·&nbsp;
+    <a href="https://github.com/DavidMcFarlin/elpis/issues">Report an issue</a>
+  </p>
+</footer>
+
+</body>
+</html>
