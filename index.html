@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elpis — Pandora Radio for GNOME</title>
   <meta name="description" content="A native GTK 4 Pandora Radio client for GNOME. Lightweight, desktop-integrated, and feature-complete." />
+  <link rel="icon" type="image/svg+xml" href="elpis-symbolic.svg" />
   <style>
     :root {
       --purple: #644b93;
@@ -59,12 +60,9 @@
     }
     .hero .app-icon {
       width: 96px; height: 96px;
-      background: rgba(255,255,255,0.15);
       border-radius: 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
+      display: inline-block;
+      vertical-align: middle;
       margin-bottom: 1.25rem;
       box-shadow: 0 4px 24px rgba(0,0,0,0.2);
     }
@@ -195,7 +193,7 @@
 </nav>
 
 <header class="hero">
-  <div class="app-icon">🎵</div>
+  <img src="elpis.svg" alt="Elpis" class="app-icon" />
   <h1>Elpis</h1>
   <p class="tagline">A native GTK&nbsp;4 Pandora Radio client for the GNOME desktop — lightweight, keyboard-friendly, and fully integrated.</p>
   <div class="hero-btns">
@@ -270,12 +268,14 @@
 
   <div class="install-block">
     <h3>Flatpak (recommended)</h3>
-    <p>Build and install locally until Elpis lands on Flathub:</p>
-    <pre>flatpak-builder --force-clean --user --install \
-  --install-deps-from=flathub \
-  build-flatpak flatpak/io.github.DavidMcFarlin.Elpis.json
-
+    <p>Add the self-hosted Elpis Flatpak repo, then install:</p>
+    <pre>flatpak remote-add --if-not-exists elpis https://davidmcfarlin.github.io/elpis/repo/
+flatpak install elpis io.github.DavidMcFarlin.Elpis
 flatpak run io.github.DavidMcFarlin.Elpis</pre>
+    <p class="deps">
+      Self-hosted because Elpis is too new to meet Flathub's submission bar.
+      The repo is signed with the Elpis maintainer key; GPG verification happens automatically.
+    </p>
   </div>
 
   <div class="install-block">
