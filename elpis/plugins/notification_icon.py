@@ -18,7 +18,9 @@ import gi
 from gi.repository import (
     GLib,
     Gio,
-    Gtk
+    Gtk,
+    Gdk,
+    GdkPixbuf
 )
 
 try:
@@ -58,6 +60,7 @@ class ElpisStatusNotifierItem(DBusServiceObject):
         super().__init__(object_path=self.STATUS_NOTIFIER_ITEM_PATH, **kwargs)
         self.window = window
         self.status = 'Passive'
+        self._pixmap_cache = None
         logging.info('ElpisStatusNotifierItem created')
 
     def notify_property_change(self, prop):
@@ -75,7 +78,57 @@ class ElpisStatusNotifierItem(DBusServiceObject):
 
     def set_icon(self, icon):
         self.icon = icon
+        self._pixmap_cache = None
         self.notify_property_change('Icon')
+
+    def _icon_pixmaps(self):
+        """Render our icon to SNI ARGB32 pixmaps.
+
+        Inside a flatpak the host tray may fail to resolve our icon *name*
+        (exported-icon caches are flaky); shipping the pixels over D-Bus
+        always displays. Hosts use IconPixmap when IconName doesn't resolve.
+        """
+        if self._pixmap_cache is not None:
+            return self._pixmap_cache
+        pixmaps = []
+        display = Gdk.Display.get_default()
+        if display is not None and self.icon:
+            # Hosts can't recolor symbolic pixmaps like they do symbolic
+            # names, and a dark glyph disappears on a dark panel — so the
+            # pixel fallback always uses the full-color icon.
+            icon_name = self.icon.replace('-symbolic', '-tray')
+            theme = Gtk.IconTheme.get_for_display(display)
+            for size in (24, 48):
+                try:
+                    paintable = theme.lookup_icon(
+                        icon_name, None, size, 1,
+                        Gtk.TextDirection.NONE, Gtk.IconLookupFlags(0))
+                    icon_file = paintable.get_file()
+                    path = icon_file.get_path() if icon_file else None
+                    if not path:
+                        continue
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(path, size, size)
+                    if not pixbuf.get_has_alpha():
+                        pixbuf = pixbuf.add_alpha(False, 0, 0, 0)
+                    w, h = pixbuf.get_width(), pixbuf.get_height()
+                    stride = pixbuf.get_rowstride()
+                    rgba = pixbuf.get_pixels()
+                    argb = bytearray(w * h * 4)
+                    i = 0
+                    for y in range(h):
+                        row = y * stride
+                        for x in range(w):
+                            o = row + x * 4
+                            argb[i] = rgba[o + 3]
+                            argb[i + 1] = rgba[o]
+                            argb[i + 2] = rgba[o + 1]
+                            argb[i + 3] = rgba[o + 2]
+                            i += 4
+                    pixmaps.append((w, h, bytes(argb)))
+                except Exception as e:
+                    logging.debug('IconPixmap render failed at %s: %s', size, e)
+        self._pixmap_cache = pixmaps
+        return pixmaps
 
     def toggle_visible(self, *args):
         if self.window.get_visible():
@@ -106,6 +159,10 @@ class ElpisStatusNotifierItem(DBusServiceObject):
     @dbus_property(STATUS_NOTIFIER_ITEM_IFACE, 's')
     def IconName(self):
         return self.icon
+
+    @dbus_property(STATUS_NOTIFIER_ITEM_IFACE, 'a(iiay)')
+    def IconPixmap(self):
+        return self._icon_pixmaps()
 
     @dbus_property(STATUS_NOTIFIER_ITEM_IFACE, 's')
     def OverlayIconName(self):

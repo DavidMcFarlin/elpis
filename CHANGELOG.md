@@ -11,6 +11,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `theme` GSetting
 - Flathub submission manifest and PR draft
 
+### Fixed
+- Tray icon no longer blank under Flatpak: the StatusNotifier item now
+  ships its icon as ARGB pixel data (`IconPixmap`) so the host tray shows
+  it even when it cannot resolve the sandboxed icon name
+
 ### Changed
 - UI redesigned platform-native on libadwaita: the custom dark "aurora" skin
   (purple gradients, glow shadows, pill controls) is replaced by the Adwaita
