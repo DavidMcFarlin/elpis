@@ -18,6 +18,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Track rows now use a clear type hierarchy (bold title, plain artist, dimmed
   album and status) and the brand tile was removed from the header bar
 - Placeholder album art re-derives its colors when the theme switches
+- New app icon: a hand-drawn flat vector of the spark of hope above
+  Pandora's jar (a pithos), replacing the gradient wordmark tile; the
+  full icon set (symbolic, tray, mono variants) shrinks from ~1.2 MB of
+  embedded rasters to ~2 KB of real SVG, and store branding colors move
+  from lavender to terracotta to match
 
 ## [1.6.3] — 2026
 

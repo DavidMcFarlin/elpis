@@ -25,8 +25,8 @@
   <url type="translate">https://github.com/DavidMcFarlin/elpis/wiki/Contributing</url>
   <url type="help">https://github.com/DavidMcFarlin/elpis/wiki</url>
   <branding>
-    <color type="primary" scheme_preference="light">#e6d4ff</color>
-    <color type="primary" scheme_preference="dark">#644b93</color>
+    <color type="primary" scheme_preference="light">#f9dfc7</color>
+    <color type="primary" scheme_preference="dark">#8f3a0e</color>
   </branding>
   <releases>
     <release date="2026-06-01" version="1.6.3">
