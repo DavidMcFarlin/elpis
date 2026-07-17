@@ -250,7 +250,7 @@
                 <child>
                   <object class="GtkBox" id="toolbar1">
                     <style>
-                      <class name="inline-toolbar"/>
+                      <class name="toolbar"/>
                     </style>
                     <child>
                       <object class="GtkButton" id="preference_btn">

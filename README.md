@@ -32,8 +32,8 @@ flatpak run io.github.DavidMcFarlin.Elpis
 
 ### From source
 
-Requirements: `meson`, `ninja`, GTK 4 (≥ 4.10), Python 3.10+, PyGObject,
-GStreamer 1.0, libsecret. Optional: `pylast` for last.fm scrobbling.
+Requirements: `meson`, `ninja`, GTK 4 (≥ 4.10), libadwaita (≥ 1.2), Python 3.10+,
+PyGObject, GStreamer 1.0, libsecret. Optional: `pylast` for last.fm scrobbling.
 
 ```sh
 meson setup --prefix=$HOME/.local build

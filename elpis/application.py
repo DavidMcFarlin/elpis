@@ -20,13 +20,14 @@ import logging
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Gdk', '4.0')
-from gi.repository import GLib, Gio, Gtk, Gdk
+gi.require_version('Adw', '1')
+from gi.repository import GLib, Gio, Gtk, Gdk, Adw
 
 from .elpis import ElpisWindow
 from .util import open_browser
 
 
-class ElpisApplication(Gtk.Application):
+class ElpisApplication(Adw.Application):
     __gtype_name__ = 'ElpisApplication'
 
     def __init__(self, version=''):
@@ -61,8 +62,18 @@ class ElpisApplication(Gtk.Application):
         self.add_main_option('last-logs', 0, GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
                              _('Show the logs for Elpis since the last reboot'), None)
 
+    _COLOR_SCHEMES = {
+        'system': Adw.ColorScheme.DEFAULT,
+        'light': Adw.ColorScheme.FORCE_LIGHT,
+        'dark': Adw.ColorScheme.FORCE_DARK,
+    }
+
+    def _apply_theme(self, *ignore):
+        scheme = self._COLOR_SCHEMES.get(self.settings['theme'], Adw.ColorScheme.DEFAULT)
+        Adw.StyleManager.get_default().set_color_scheme(scheme)
+
     def do_startup(self):
-        Gtk.Application.do_startup(self)
+        Adw.Application.do_startup(self)
         signal.signal(signal.SIGINT, signal.SIG_DFL)
 
         icon_path = os.environ.get('ELPIS_ICON_PATH')
@@ -71,10 +82,12 @@ class ElpisApplication(Gtk.Application):
             if display:
                 Gtk.IconTheme.get_for_display(display).add_search_path(icon_path)
 
-        # Prefer dark theme regardless of system setting — Elpis is dark-only.
-        settings = Gtk.Settings.get_default()
-        if settings:
-            settings.set_property('gtk-application-prefer-dark-theme', True)
+        # Light/dark follows the system by default; the app.theme action
+        # (Theme submenu in the main menu) can force either.
+        self.settings = Gio.Settings.new('io.github.DavidMcFarlin.Elpis')
+        self.add_action(self.settings.create_action('theme'))
+        self.settings.connect('changed::theme', self._apply_theme)
+        self._apply_theme()
 
         css_provider = Gtk.CssProvider()
         css_provider.load_from_resource('/io/github/DavidMcFarlin/Elpis/elpis.css')
@@ -220,7 +233,7 @@ class ElpisApplication(Gtk.Application):
         self.window.present()
 
     def do_shutdown(self):
-        Gtk.Application.do_shutdown(self)
+        Adw.Application.do_shutdown(self)
         if self.window:
             self.window.destroy()
 

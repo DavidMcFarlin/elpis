@@ -6,7 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- Light and dark themes: follow the system color scheme by default, with a
+  Theme submenu (System / Light / Dark) in the main menu backed by a new
+  `theme` GSetting
 - Flathub submission manifest and PR draft
+
+### Changed
+- UI redesigned platform-native on libadwaita: the custom dark "aurora" skin
+  (purple gradients, glow shadows, pill controls) is replaced by the Adwaita
+  stylesheet and the system accent color
+- Track rows now use a clear type hierarchy (bold title, plain artist, dimmed
+  album and status) and the brand tile was removed from the header bar
+- Placeholder album art re-derives its colors when the theme switches
 
 ## [1.6.3] — 2026
 

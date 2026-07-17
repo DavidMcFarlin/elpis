@@ -53,6 +53,16 @@
       <summary>Volume of player</summary>
     </key>
 
+    <key type="s" name="theme">
+      <choices>
+        <choice value="system"/>
+        <choice value="light"/>
+        <choice value="dark"/>
+      </choices>
+      <default>"system"</default>
+      <summary>Color scheme: follow the system, or force light or dark</summary>
+    </key>
+
     <key type="s" name="audio-quality">
       <choices>
         <choice value="lowQuality"/>

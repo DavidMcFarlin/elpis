@@ -21,6 +21,26 @@
       </item>
     </section>
     <section>
+      <submenu>
+        <attribute name="label" translatable="yes">_Theme</attribute>
+        <section>
+          <item>
+            <attribute name="action">app.theme</attribute>
+            <attribute name="target">system</attribute>
+            <attribute name="label" translatable="yes">_System</attribute>
+          </item>
+          <item>
+            <attribute name="action">app.theme</attribute>
+            <attribute name="target">light</attribute>
+            <attribute name="label" translatable="yes">_Light</attribute>
+          </item>
+          <item>
+            <attribute name="action">app.theme</attribute>
+            <attribute name="target">dark</attribute>
+            <attribute name="label" translatable="yes">_Dark</attribute>
+          </item>
+        </section>
+      </submenu>
       <item>
         <attribute name="action">app.preferences</attribute>
         <attribute name="label" translatable="yes">_Preferences</attribute>
@@ -61,22 +81,11 @@
     <child type="titlebar">
       <object class="GtkHeaderBar">
         <property name="show-title-buttons">True</property>
-        <child>
-          <object class="GtkImage">
-            <property name="icon_name">io.github.DavidMcFarlin.Elpis</property>
-            <property name="pixel_size">48</property>
-            <property name="margin_start">4</property>
-            <property name="margin_end">4</property>
-            <style>
-              <class name="elpis-brand-mark"/>
-            </style>
-          </object>
-        </child>
         <child type="title">
           <object class="GtkMenuButton" id="stations_button">
             <property name="tooltip-text" translatable="yes">Stations</property>
             <style>
-              <class name="elpis-stations-trigger"/>
+              <class name="flat"/>
             </style>
             <child>
               <object class="GtkBox">
@@ -86,6 +95,9 @@
                     <property name="single_line_mode">1</property>
                     <property name="ellipsize">end</property>
                     <property name="max_width_chars">28</property>
+                    <style>
+                      <class name="heading"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -103,14 +115,7 @@
           <object class="GtkMenuButton">
             <property name="menu-model">app-menu</property>
             <property name="tooltip-text" translatable="yes">Main Menu</property>
-            <style>
-              <class name="elpis-header-icon"/>
-            </style>
-            <child>
-              <object class="GtkImage">
-                <property name="icon_name">open-menu-symbolic</property>
-              </object>
-            </child>
+            <property name="icon_name">open-menu-symbolic</property>
           </object>
         </child>
       </object>
@@ -138,6 +143,10 @@
         </child>
         <child>
           <object class="GtkStatusbar" id="statusbar">
+            <style>
+              <class name="dim-label"/>
+              <class name="caption"/>
+            </style>
           </object>
         </child>
         <child>
@@ -149,9 +158,6 @@
             <property name="margin_bottom">10</property>
             <property name="margin_start">12</property>
             <property name="margin_end">12</property>
-            <style>
-              <class name="elpis-playback-bar"/>
-            </style>
             <child>
               <object class="GtkBox" id="playcontrol_box">
                 <property name="spacing">6</property>
@@ -162,6 +168,7 @@
                     <style>
                       <class name="elpis-play"/>
                       <class name="circular"/>
+                      <class name="suggested-action"/>
                     </style>
                     <child>
                       <object class="GtkImage" id="playpause_image">

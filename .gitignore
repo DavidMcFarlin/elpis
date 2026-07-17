@@ -2,3 +2,4 @@
 /po/*.pot
 *.tar.xz
 __pycache__/
+.gstack/

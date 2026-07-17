@@ -33,7 +33,8 @@ gi.require_version('Gst', '1.0')
 gi.require_version('GstAudio', '1.0')
 gi.require_version('GstPbutils', '1.0')
 gi.require_version('Graphene', '1.0')
-from gi.repository import Gst, GstAudio, GstPbutils, GObject, Gtk, Gdk, Pango, GdkPixbuf, Gio, GLib, Graphene
+gi.require_version('Adw', '1')
+from gi.repository import Gst, GstAudio, GstPbutils, GObject, Gtk, Gdk, Pango, GdkPixbuf, Gio, GLib, Graphene, Adw
 
 if Gtk.get_major_version() < 4:
     sys.exit('Gtk 4.0 is required')
@@ -413,9 +414,18 @@ class ElpisWindow(Gtk.ApplicationWindow):
 
         self.songs_treeview.append_column(title_col)
 
+        # Defer to idle: at realize time the widget's style isn't fully
+        # resolved yet and the color lookups can return stale values.
         self.songs_treeview.connect(
             'realize',
-            lambda w: self.render_cover_art.update_icons(w)
+            lambda w: GLib.idle_add(self._update_cover_art_icons)
+        )
+
+        # Placeholder art derives its colors from the theme; rebuild it when
+        # the color scheme flips between light and dark.
+        Adw.StyleManager.get_default().connect(
+            'notify::dark',
+            lambda *ignore: GLib.idle_add(self._update_cover_art_icons)
         )
 
         self.songs_treeview.connect('row-activated', lambda tv, path, col: self.start_selected_song())
@@ -434,6 +444,12 @@ class ElpisWindow(Gtk.ApplicationWindow):
         self.stations_popover.listbox.connect('row-activated', self.active_station_changed)
         self.stations_button.set_popover(self.stations_popover)
         self.stations_popover.search.connect('activate', self.search_activate_handler)
+
+    def _update_cover_art_icons(self):
+        if self.songs_treeview.get_realized():
+            self.render_cover_art.update_icons(self.songs_treeview)
+            self.songs_treeview.queue_draw()
+        return GLib.SOURCE_REMOVE
 
     def init_actions(self, app):
         action = Gio.SimpleAction.new('playpause', None)
@@ -1259,12 +1275,13 @@ class ElpisWindow(Gtk.ApplicationWindow):
         if not msg:
             msg = " "
 
+        # One weight step per line: bold title, plain artist, dim album/status.
         if song.is_ad:
-            description = "<b><big>Commercial Advertisement</big></b>\n<b>Pandora</b>"
+            description = "<b><big>Commercial Advertisement</big></b>\nPandora"
         else:
-            description = "<b><big>%s</big></b>\nby <b>%s</b>\n<small>from <i>%s</i></small>" % (title, artist, album)
+            description = "<b><big>%s</big></b>\n%s\n<small><span alpha=\"60%%\">%s</span></small>" % (title, artist, album)
 
-        return "%s\n<small>%s</small>" % (description, msg)
+        return "%s\n<small><span alpha=\"60%%\">%s</span></small>" % (description, msg)
 
     @staticmethod
     def song_icon(song):
