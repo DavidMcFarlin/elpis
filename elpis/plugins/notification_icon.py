@@ -42,6 +42,7 @@ from .dbus_util.DBusServiceObject import (
 )
 
 from elpis.plugin import ElpisPlugin
+from elpis.util import is_flatpak
 
 
 STATUS_NOTIFIER_WATCH_NAME = 'org.kde.StatusNotifierWatcher'
@@ -158,7 +159,10 @@ class ElpisStatusNotifierItem(DBusServiceObject):
 
     @dbus_property(STATUS_NOTIFIER_ITEM_IFACE, 's')
     def IconName(self):
-        return self.icon
+        # Inside flatpak, host trays resolve icon names against exported
+        # icons — a chain that breaks silently. Withhold the name there so
+        # every host falls through to IconPixmap, which always renders.
+        return '' if is_flatpak() else self.icon
 
     @dbus_property(STATUS_NOTIFIER_ITEM_IFACE, 'a(iiay)')
     def IconPixmap(self):
@@ -201,8 +205,10 @@ class ElpisNotificationIcon(ElpisPlugin):
     def on_prepare(self):
         self.playpausebtn = None
 
-        # Preferences for icon type
-        if not self.settings['data']:
+        # Preferences for icon type. Also resets names from older builds
+        # (e.g. pithos-*) that no longer exist and would render blank.
+        if self.settings['data'] not in ('io.github.DavidMcFarlin.Elpis-symbolic',
+                                         'io.github.DavidMcFarlin.Elpis-tray'):
             self.settings['data'] = 'io.github.DavidMcFarlin.Elpis-symbolic'
         self.preferences_dialog = NotificationIconPluginPrefsDialog(self.window, self.settings)
 
