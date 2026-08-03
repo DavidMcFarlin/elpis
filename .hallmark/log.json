@@ -1,11 +1,14 @@
 [
-  { "date": "2026-08-03",
+  {
+    "date": "2026-08-03",
     "macrostructure": "Split Studio",
     "theme": "custom",
-    "theme_axes": "light / geometric-sans / chromatic-terracotta",
-    "vibe": "warm clay, spark of hope, GNOME-soft",
+    "theme_axes": "light / geometric-sans / cool",
+    "vibe": "adwaita-neutral, blue, platform-native",
     "enrichment": "none",
     "nav": "N1a",
     "footer": "Ft5",
-    "brief": "Elpis · Pandora client for GNOME · project site" }
+    "brief": "Elpis \u00b7 Pandora client for GNOME \u00b7 project site",
+    "note": "rethemed 2026-08-03: user directed palette to match the app's Adwaita neutrals + blue; clay anchor rejected"
+  }
 ]
