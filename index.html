@@ -4,91 +4,110 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elpis – Pandora Radio Client for GNOME</title>
-  <meta name="description" content="A native GTK 4 Pandora Radio client for the GNOME desktop. Lightweight, keyboard-friendly, and fully integrated." />
-  <link rel="icon" type="image/svg+xml" href="elpis-symbolic.svg" />
+  <meta name="description" content="A native GTK 4 / libadwaita Pandora Radio client for the GNOME desktop. Lightweight, keyboard-friendly, and fully integrated." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" type="image/svg+xml" href="elpis.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="wrap">
-    <h1>
-      <a href=".">
-        <img src="elpis.svg" alt="Elpis" />
-        <span>Elpis<em>A native Pandora client for the GNOME desktop</em></span>
-      </a>
-    </h1>
-    <div id="content">
 
-      <p>Elpis is a maintained fork of <a href="https://github.com/pithos/pithos">Pithos</a>, a native Pandora Radio client for Linux. It runs on GTK&nbsp;4, integrates with GNOME media keys, MPRIS, last.fm, and the sound menu, and adds features that were always in the Pandora API but never made it into upstream Pithos.</p>
+  <header class="hero">
+    <img class="app-icon" src="elpis.svg" alt="" width="128" height="128" />
+    <h1>Elpis</h1>
+    <p class="tagline">A native Pandora Radio client for the GNOME desktop</p>
+    <div class="hero-actions">
+      <a class="btn suggested" href="#install">Install</a>
+      <a class="btn" href="https://github.com/DavidMcFarlin/elpis">Source on GitHub</a>
+    </div>
+  </header>
 
+  <main>
+
+    <section class="shot">
+      <img src="elpis-main.png" alt="Elpis playing a station in the redesigned libadwaita interface" />
+    </section>
+
+    <section>
+      <p class="lede">Elpis is a maintained fork of <a href="https://github.com/pithos/pithos">Pithos</a>. It runs on GTK&nbsp;4 and libadwaita, integrates with GNOME media keys, MPRIS, last.fm, and the sound menu, and adds features that were always in the Pandora API but never made it into upstream Pithos.</p>
+    </section>
+
+    <section class="card news">
       <h2 id="news">News</h2>
       <p><strong>Elpis v1.6.3 released.</strong> The first release of the Elpis line. See the <a href="https://github.com/DavidMcFarlin/elpis/blob/main/CHANGELOG.md">changelog</a> for details.</p>
+    </section>
 
-      <h2 id="screenshot">Screenshot</h2>
-      <p><img src="https://raw.githubusercontent.com/DavidMcFarlin/elpis/main/data/screenshots/elpis-main.png" alt="Elpis playing a station" /></p>
-
-      <h2 id="links">Links</h2>
-      <ul>
-        <li><a href="#install">Installation</a></li>
-        <li><a href="https://github.com/DavidMcFarlin/elpis/blob/main/CHANGELOG.md">Changelog</a></li>
-        <li><a href="https://github.com/DavidMcFarlin/elpis">Source</a></li>
-        <li><a href="https://github.com/DavidMcFarlin/elpis/releases">Source Downloads</a></li>
-        <li><a href="https://github.com/DavidMcFarlin/elpis/issues">Bug reports</a></li>
-      </ul>
-
+    <section>
       <h2 id="features">Features</h2>
-      <ul>
+      <ul class="feature-grid">
         <li>Play / Pause / Skip / Thumbs / Tired of this song</li>
         <li>Station switching, creation, deletion, sharing</li>
         <li>Genre station browser</li>
-        <li>"Why is this playing?" — Pandora's track-explanation traits</li>
-        <li>Station seed manager (add/remove song, artist, genre seeds)</li>
+        <li>“Why is this playing?” — Pandora’s track-explanation traits</li>
+        <li>Station seed manager (song, artist, genre seeds)</li>
         <li>Bookmarks viewer with delete</li>
-        <li>Album art, cover art cache</li>
+        <li>Album art with cover art cache</li>
         <li>Media keys, MPRIS, last.fm scrobbling</li>
         <li>Desktop notifications on track change</li>
         <li>Secure credentials via libsecret / system keyring</li>
         <li>10-band equalizer (plugin)</li>
         <li>Screensaver pause / inhibit (plugins)</li>
         <li>Proxy support</li>
+        <li>Light and dark themes, platform-native UI</li>
       </ul>
+    </section>
 
+    <section>
       <h2 id="install">Install</h2>
 
-      <h3 id="installing-with-flatpak">Installing with Flatpak</h3>
-      <p>Flatpak is the recommended install method. The repo is self-hosted because Elpis is too new to meet Flathub's submission bar.</p>
+      <h3 id="installing-with-flatpak">With Flatpak <span class="pill">recommended</span></h3>
+      <p>The repo is self-hosted because Elpis is too new to meet Flathub’s submission bar.</p>
       <pre><code>flatpak remote-add --if-not-exists elpis https://davidmcfarlin.github.io/elpis/repo/
 flatpak install elpis io.github.DavidMcFarlin.Elpis
 flatpak run io.github.DavidMcFarlin.Elpis</code></pre>
 
-      <h3 id="installing-from-source">Installing from source</h3>
+      <h3 id="installing-from-source">From source</h3>
       <p>Requires <code>meson</code>, <code>ninja</code>, GTK&nbsp;4&nbsp;≥&nbsp;4.10, Python&nbsp;3.10+, PyGObject, GStreamer&nbsp;1.0, libsecret. Optional: <code>pylast</code> for last.fm scrobbling.</p>
       <pre><code>meson setup --prefix=$HOME/.local build
 meson install -C build
 glib-compile-schemas $HOME/.local/share/glib-2.0/schemas
 elpis</code></pre>
+    </section>
 
+    <section>
+      <h2 id="links">Links</h2>
+      <ul class="link-list">
+        <li><a href="https://github.com/DavidMcFarlin/elpis/blob/main/CHANGELOG.md">Changelog</a></li>
+        <li><a href="https://github.com/DavidMcFarlin/elpis">Source</a></li>
+        <li><a href="https://github.com/DavidMcFarlin/elpis/releases">Source downloads</a></li>
+        <li><a href="https://github.com/DavidMcFarlin/elpis/issues">Bug reports</a></li>
+      </ul>
+    </section>
+
+    <section>
       <h2 id="faq">FAQ</h2>
 
-      <h3 id="why-elpis">Why "Elpis"?</h3>
+      <h3 id="why-elpis">Why “Elpis”?</h3>
       <p>In Greek mythology, Pandora opened a jar (in Greek: <em>pithos</em>) and released all the evils into the world. <a href="https://en.wikipedia.org/wiki/Elpis">Elpis</a> — the spirit of Hope — was the only thing that remained inside. Elpis is the continuation of Pithos, kept alive after upstream development stalled.</p>
 
       <h3 id="how-different">How is this different from Pithos?</h3>
-      <p>Elpis is a fork that modernizes Pithos for current Linux desktops: GTK&nbsp;3 → GTK&nbsp;4, Flatpak runtime bumped to GNOME&nbsp;50, expired internal CA cert removed, network error handling updated for modern Python. New features include a discoverable hamburger menu, a one-click "New Station" entry point, a genre browser, a station seed manager, station sharing, a bookmarks viewer, and "Why is this playing?" — all of which expose functionality that was always in the Pandora API but never in the upstream UI.</p>
+      <p>Elpis modernizes Pithos for current Linux desktops: GTK&nbsp;3 → GTK&nbsp;4 with a platform-native libadwaita interface in light and dark themes, Flatpak runtime bumped to GNOME&nbsp;50, expired internal CA cert removed, and network error handling updated for modern Python. New features include a discoverable menu, a one-click “New Station” entry point, a genre browser, a station seed manager, station sharing, a bookmarks viewer, and “Why is this playing?” — all exposing functionality that was always in the Pandora API but never in the upstream UI.</p>
 
       <h3 id="migrate">Will my Pithos settings migrate?</h3>
-      <p>No. On first launch you'll be prompted to sign in to Pandora again; credentials are saved to the system keyring via libsecret, so you only enter them once.</p>
+      <p>No. On first launch you’ll be prompted to sign in to Pandora again; credentials are saved to the system keyring via libsecret, so you only enter them once.</p>
 
-      <h3 id="flathub">Why isn't Elpis on Flathub?</h3>
+      <h3 id="flathub">Why isn’t Elpis on Flathub?</h3>
       <p>Flathub requires a project to meet activity and quality bars that a brand-new fork of an unmaintained project cannot meet. Elpis is self-hosted on GitHub Pages instead. The repo is signed with a maintainer GPG key, so <code>flatpak install</code> verifies the build automatically.</p>
 
       <h3 id="upstream">Will my changes go back to Pithos?</h3>
-      <p>Elpis is maintained independently. Upstream <a href="https://github.com/pithos/pithos">Pithos</a> hasn't had a release since March&nbsp;2024. Contributions to Pithos are still welcome on their own terms; this project simply does not depend on review bandwidth there.</p>
+      <p>Elpis is maintained independently. Upstream <a href="https://github.com/pithos/pithos">Pithos</a> hasn’t had a release since March&nbsp;2024. Contributions to Pithos are still welcome on their own terms; this project simply does not depend on review bandwidth there.</p>
+    </section>
 
-    </div>
-    <div id="footer">
-      <p>Elpis is free software under the <a href="https://github.com/DavidMcFarlin/elpis/blob/main/LICENSE">GPL-3.0 license</a>. Descended from the <a href="https://github.com/pithos/pithos">Pithos</a> project.</p>
-      <p>Not affiliated with or endorsed by Pandora Media, Inc.</p>
-    </div>
-  </div>
+  </main>
+
+  <footer>
+    <p>Elpis is free software under the <a href="https://github.com/DavidMcFarlin/elpis/blob/main/LICENSE">GPL-3.0 license</a>. Descended from the <a href="https://github.com/pithos/pithos">Pithos</a> project.</p>
+    <p>Not affiliated with or endorsed by Pandora Media, Inc.</p>
+  </footer>
+
 </body>
 </html>

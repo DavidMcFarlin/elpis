@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  <path fill="currentColor" d="M 13 2 L 6 3.5 V 11.5 A 2 2 0 1 0 7.5 13.4 V 6 L 13 4.6 V 9.5 A 2 2 0 1 0 14.5 11.4 V 2 Z"/>
+  <g fill="#2e3436">
+    <path d="M 11.5,0.5 L 12.3,2.2 L 14,3 L 12.3,3.8 L 11.5,5.5 L 10.7,3.8 L 9,3 L 10.7,2.2 Z"/>
+    <rect x="4.5" y="4" width="7" height="1.8" rx="0.8"/>
+    <path d="M 6,6.3 L 10,6.3 C 10,7.1 9.9,7.6 9.8,7.9 C 11.6,8.4 12.5,9.3 12.5,10.4 C 12.5,12.3 11,13.5 10,14 L 6,14 C 5,13.5 3.5,12.3 3.5,10.4 C 3.5,9.3 4.4,8.4 6.2,7.9 C 6.1,7.6 6,7.1 6,6.3 Z"/>
+    <rect x="5" y="14.2" width="6" height="1.5" rx="0.7"/>
+  </g>
 </svg>

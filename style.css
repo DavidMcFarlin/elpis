@@ -1,221 +1,285 @@
+/* Elpis website — styled after the app's libadwaita UI.
+   Adwaita palette, light and dark via prefers-color-scheme. */
+
+:root {
+  --bg: #fafafb;
+  --fg: #241f31;
+  --fg-dim: #5e5c64;
+  --card: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --accent: #3584e4;
+  --accent-fg: #ffffff;
+  --code-bg: #241f31;
+  --code-fg: #deddda;
+  --inline-code-bg: rgba(53, 132, 228, 0.08);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1d1d20;
+    --fg: #ffffff;
+    --fg-dim: #9a9996;
+    --card: #2a2a2e;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --accent: #62a0ea;
+    --accent-fg: #ffffff;
+    --code-bg: #151518;
+    --code-fg: #deddda;
+    --inline-code-bg: rgba(98, 160, 234, 0.12);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  padding: 0;
-  background: #ece9f2;
-  font-family: Helvetica, Arial, sans-serif;
-  color: #1a1a2e;
-}
-
-#wrap {
-  width: 850px;
-  margin: 80px auto 60px;
-  position: relative;
-  border-radius: 30px;
-  box-shadow: 5px 5px 15px #bbb;
-  -webkit-box-shadow: 5px 5px 15px #bbb;
-  background: #644b93;
-  background: -moz-linear-gradient(top, rgba(100, 75, 147, 1) 0%, rgba(243, 244, 245, 1) 14%, rgba(243, 244, 245, 1) 100%);
-  background: -webkit-linear-gradient(top, rgba(100, 75, 147, 1) 0%, rgba(243, 244, 245, 1) 14%, rgba(243, 244, 245, 1) 100%);
-  background: linear-gradient(to bottom, rgba(100, 75, 147, 1) 0%, rgba(243, 244, 245, 1) 14%, rgba(243, 244, 245, 1) 100%);
-  padding-bottom: 30px;
-}
-
-h1, h2, h3, h4 {
-  font-variant: small-caps;
-}
-
-h1 {
-  padding: 0;
-  margin: 0;
-}
-
-h1 img {
-  position: absolute;
-  top: -50px;
-  left: -80px;
-  border: none;
-  width: 220px;
-  height: 220px;
-}
-
-h1 span {
-  position: absolute;
-  left: 175px;
-  top: 30px;
-  text-shadow: 2px 2px 5px #444;
-  font-size: 80px;
-  font-family: FreeSans, Arial, Helvetica;
-  color: white;
-}
-
-h1 span em {
-  display: block;
-  font-weight: normal;
-  font-size: 14px;
-  text-shadow: none;
-  font-style: normal;
-  color: #444;
-  margin-top: 0.2em;
-}
-
-h1 a, h1 a:link, h1 a:hover {
-  color: white !important;
-  text-decoration: none;
-}
-
-#content {
-  min-height: 400px;
-  padding: 145px 30px 0;
-  margin-left: 130px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Adwaita Sans", Cantarell, Inter, -apple-system, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
 }
 
-h2, h3, h4 {
-  font-family: Helvetica, Arial, sans-serif;
-  margin: 1em 0 0.5em;
+/* ---- hero ---- */
+
+.hero {
+  text-align: center;
+  padding: 4rem 1.25rem 2.5rem;
+}
+
+.app-icon {
+  width: 128px;
+  height: 128px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.18));
+}
+
+.hero h1 {
+  margin: 0.75rem 0 0;
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin: 0.4rem 0 0;
+  color: var(--fg-dim);
+  font-size: 1.15rem;
+}
+
+.hero-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* libadwaita-style pill buttons */
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  color: var(--fg);
+  font-weight: 700;
   text-decoration: none;
-  font-variant: small-caps;
-  text-shadow: 2px 2px 4px #ccc;
-  color: #4a3570;
+  transition: filter 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  filter: brightness(0.96);
+}
+
+.btn.suggested {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--accent-fg);
+}
+
+.btn.suggested:hover {
+  filter: brightness(1.08);
+}
+
+/* ---- layout ---- */
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 2rem;
+}
+
+section {
+  margin: 2.25rem 0;
 }
 
 h2 {
-  font-size: 160%;
-  margin-left: -150px;
-  border-bottom: 1px solid #eee;
-  margin-right: 15px;
-  margin-top: 1.5em;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
 }
 
 h3 {
-  font-size: 110%;
-  margin-top: 1.5em;
-  margin-left: -150px;
-  border-bottom: 1px solid #f0eaf7;
-  margin-right: 15px;
-}
-
-a {
-  color: #1a1a2e;
-  text-decoration: underline;
-  text-decoration-color: #8b5cf6;
-  text-underline-offset: 2px;
-}
-
-a:hover {
-  text-decoration-color: #644b93;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.4rem;
 }
 
 p {
   margin: 0.6em 0;
 }
 
-ul {
-  padding-left: 1.5em;
-  line-height: 1.8;
+.lede {
+  font-size: 1.1rem;
 }
 
-li {
-  margin: 0.2em 0;
+a {
+  color: var(--accent);
+  text-decoration: none;
 }
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---- screenshot ---- */
+
+.shot {
+  margin: 0 0 2.5rem;
+  text-align: center;
+}
+
+.shot img {
+  max-width: min(100%, 600px);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* ---- cards & lists ---- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+/* features as a boxed-list grid, like AdwActionRows */
+.feature-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  gap: 0.5rem;
+}
+
+.feature-grid li {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+}
+
+.link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.link-list li a {
+  display: inline-block;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.link-list li a:hover {
+  text-decoration: none;
+  filter: brightness(0.96);
+}
+
+.pill {
+  display: inline-block;
+  vertical-align: 0.15em;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---- code ---- */
 
 pre {
-  background: #1a1a2e;
-  color: #e6d4ff;
-  border-radius: 8px;
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border-radius: 12px;
   padding: 1rem 1.25rem;
   font-size: 0.85rem;
   overflow-x: auto;
   line-height: 1.7;
   margin: 0.75em 0;
-  font-family: Menlo, Consolas, monospace;
 }
 
 code {
-  font-family: Menlo, Consolas, monospace;
-  background: rgba(149, 119, 213, 0.12);
+  font-family: "Adwaita Mono", "Source Code Pro", Menlo, Consolas, monospace;
+  background: var(--inline-code-bg);
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: 5px;
   font-size: 0.92em;
-  color: #4a3570;
 }
 
 pre code {
   background: transparent;
   padding: 0;
-  color: inherit;
   font-size: inherit;
 }
 
-img[alt="Elpis playing a station"] {
-  max-width: 100%;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  border: 1px solid #ddd8f0;
-  display: block;
-  margin: 0.5em 0;
-}
+/* ---- footer ---- */
 
-#footer {
-  padding: 20px 30px 0;
-  margin-left: 130px;
-  color: #888;
+footer {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  border-top: 1px solid var(--card-border);
+  color: var(--fg-dim);
   font-size: 0.85rem;
-  border-top: 1px solid #eee;
-  margin-top: 30px;
-  margin-right: 15px;
 }
 
-#footer p {
+footer p {
   margin: 0.3em 0;
 }
 
-@media (max-width: 900px) {
-  #wrap {
-    width: 95%;
-    margin: 20px auto;
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 2.5rem;
   }
 
-  h1 img {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 120px;
-    height: 120px;
-    display: block;
-    margin: 30px auto 0;
-  }
-
-  h1 span {
-    position: relative;
-    left: 0;
-    top: 0;
-    text-align: center;
-    display: block;
-    font-size: 50px;
-    margin-top: 15px;
-  }
-
-  h1 span em {
-    text-align: center;
-    margin-top: 8px;
-  }
-
-  h1 a {
-    display: block;
-    text-align: center;
-  }
-
-  #content {
-    margin-left: 0;
-    padding: 20px 20px 0;
-  }
-
-  h2, h3 {
-    margin-left: 0;
-  }
-
-  #footer {
-    margin-left: 0;
+  .hero h1 {
+    font-size: 2rem;
   }
 }
