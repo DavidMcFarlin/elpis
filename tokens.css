@@ -1,0 +1,76 @@
+/* Elpis design tokens — custom Hallmark theme
+ * vibe: "warm clay, spark of hope, GNOME-soft"
+ * anchor: the app icon's terracotta jar + spark yellow */
+
+:root {
+  --color-paper:      oklch(96.5% 0.014 75);
+  --color-paper-2:    oklch(93.5% 0.016 75);
+  --color-ink:        oklch(23% 0.014 55);
+  --color-ink-2:      oklch(38% 0.014 55);
+  --color-muted:      oklch(45% 0.014 60);
+  --color-rule:       oklch(84% 0.016 70);
+  --color-rule-2:     oklch(89% 0.014 72);
+  --color-accent:     oklch(52% 0.14 42);
+  --color-accent-ink: oklch(96.5% 0.014 75);
+  --color-spark:      oklch(83% 0.15 95);
+  --color-focus:      oklch(50% 0.19 42);
+  --color-code-paper: oklch(20% 0.014 55);
+  --color-code-ink:   oklch(93% 0.010 75);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Geist Mono", ui-monospace, monospace;
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  --text-sm:   0.8rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.5625rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-display: clamp(2.4rem, 3.5vw + 1rem, 3.9rem);
+
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+
+  --rule-hair: 1px;
+  --radius-chip: 999px;
+  --radius-fig: 12px;
+  --radius-code: 8px;
+  --radius-inline: 4px;
+  --page-gutter: clamp(1rem, 4vw, 2rem);
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 200;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:      oklch(15% 0.010 50);
+    --color-paper-2:    oklch(19% 0.012 50);
+    --color-ink:        oklch(93% 0.008 75);
+    --color-ink-2:      oklch(82% 0.008 70);
+    --color-muted:      oklch(72% 0.010 65);
+    --color-rule:       oklch(30% 0.012 55);
+    --color-rule-2:     oklch(24% 0.010 52);
+    --color-accent:     oklch(70% 0.12 48);
+    --color-accent-ink: oklch(15% 0.010 50);
+    --color-spark:      oklch(80% 0.13 95);
+    --color-focus:      oklch(74% 0.17 48);
+    --color-code-paper: oklch(19% 0.012 50);
+    --color-code-ink:   oklch(90% 0.008 75);
+  }
+}
