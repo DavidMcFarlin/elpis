@@ -191,8 +191,11 @@ class Pandora:
             args['partnerAuthToken'] = self.partnerAuthToken
         data = json.dumps(args).encode('utf-8')
 
-        logging.debug(url)
-        logging.debug(data)
+        # Redact credentials before logging: url carries auth_token, args carry
+        # password/auth tokens on login calls (CodeQL py/clear-text-logging-sensitive-data).
+        logging.debug(re.sub(r'auth_token=[^&]+', 'auth_token=<redacted>', url))
+        logging.debug(json.dumps({k: '<redacted>' if k in ('password', 'userAuthToken', 'partnerAuthToken') else v
+                                  for k, v in args.items()}))
 
         if blowfish:
             data = self.pandora_encrypt(data)
